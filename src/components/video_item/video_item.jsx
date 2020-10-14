@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./video_item.module.css";
 
-const VideoItem = (props) => {
+const VideoItem = React.memo((props) => {
   const displayType = props.display === "list" ? styles.list: styles.grid;
 
   return (
@@ -13,10 +13,8 @@ const VideoItem = (props) => {
         <p className={styles.channel}>{props.video.snippet.channelTitle}</p>
       </div>
     </div>
-  </li>
-    
-    
+  </li>   
   )
-}
+});
 
 export default VideoItem;

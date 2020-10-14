@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import styles from "./app.module.css";
 import { useState } from "react";
 import VideoList from "./components/video_list/video_list";
@@ -8,13 +8,13 @@ import VideoDetail from "./components/video_detail/video_detail";
 function App(props) {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const search = (query) => {
+  const search = useCallback((query) => {
     props.youtube.search(query)
     .then(videos => {
       setVideos(videos);
       setSelectedVideo(null);
     });
-  }
+  }, [props.youtube]);
 
   const selectVideo = (video) => {
     setSelectedVideo(video);
@@ -23,8 +23,7 @@ function App(props) {
   useEffect(() => {
     props.youtube.mostPupular()
     .then(videos => {setVideos(videos)});
-  }, []);
-  
+  }, [props.youtube]);
   return (
     <div className={styles.app}>
       <SearchHeader onSearch={search}/>
