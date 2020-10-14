@@ -10,7 +10,10 @@ function App(props) {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const search = (query) => {
     props.youtube.search(query)
-    .then(videos => setVideos(videos));
+    .then(videos => {
+      setVideos(videos);
+      setSelectedVideo(null);
+    });
   }
 
   const selectVideo = (video) => {
@@ -19,7 +22,7 @@ function App(props) {
 
   useEffect(() => {
     props.youtube.mostPupular()
-    .then(videos => setVideos(videos));
+    .then(videos => {setVideos(videos)});
   }, []);
   
   return (
